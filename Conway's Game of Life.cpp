@@ -10,11 +10,10 @@ int main()
 {
 	srand(time(NULL));
 
-    sf::RenderWindow window(sf::VideoMode(width, height,16), "Cellular Automata");
+    sf::RenderWindow window(sf::VideoMode(width*2, height*2,16), "Cellular Automata");
 
     sf::Image img;
-    img.create(width,height,sf::Color::White);
-
+    img.create(width*2,height*2,sf::Color::White);
     std::vector<std::vector<bool> > now,next;
     now.assign(height,std::vector<bool>(width,false));
     
@@ -22,7 +21,10 @@ int main()
     	for(int j=0;j<width;++j){
     		if(rand()%10==0){
     			now[i][j]=true;
-    			img.setPixel(j,i,sf::Color::Black);
+    			img.setPixel(j*2,i*2,sf::Color::Black);
+    			img.setPixel(j*2,i*2+1,sf::Color::Black);
+    			img.setPixel(j*2+1,i*2,sf::Color::Black);
+    			img.setPixel(j*2+1,i*2+1,sf::Color::Black);
     		}
     	}
 
@@ -63,14 +65,23 @@ int main()
 		    		if(i<height-1 && j<width-1)	count+=now[i+1][j+1];
 		    		
 		    		if(now[i][j] && count>=2 && count<=3){
-		    			img.setPixel(j,i,sf::Color::Black);
+		    			img.setPixel(j*2,i*2,sf::Color::Black);
+		    			img.setPixel(j*2,i*2+1,sf::Color::Black);
+		    			img.setPixel(j*2+1,i*2,sf::Color::Black);
+		    			img.setPixel(j*2+1,i*2+1,sf::Color::Black);
 		    			next[i][j]=true;
 		    		} else if(!now[i][j] && count==3){
-		    			img.setPixel(j,i,sf::Color::Black);
+		    			img.setPixel(j*2,i*2,sf::Color::Black);
+		    			img.setPixel(j*2,i*2+1,sf::Color::Black);
+		    			img.setPixel(j*2+1,i*2,sf::Color::Black);
+		    			img.setPixel(j*2+1,i*2+1,sf::Color::Black);
 		    			next[i][j]=true;
 		    		}
 		    		else{
-		    			img.setPixel(j,i,sf::Color::White);
+		    			img.setPixel(j*2,i*2,sf::Color::White);
+		    			img.setPixel(j*2,i*2+1,sf::Color::White);
+		    			img.setPixel(j*2+1,i*2,sf::Color::White);
+		    			img.setPixel(j*2+1,i*2+1,sf::Color::White);
 		    			next[i][j]=false;
 		    		}
 		   		}
